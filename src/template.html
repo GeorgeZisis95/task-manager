@@ -8,11 +8,17 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="content">
-            Hello World
+    <dialog closedby="any">
+        <form>
+            <p><label>Title: <input type="text" required></label></p>
+        </form>
+        <div>
+            <button class="cancel-button" value="cancel" formmethod="dialog">Cancel</button>
+            <button class="confirm-button" value="default">Confirm</button>
         </div>
-    </div>
+    </dialog>
+    <button class="show-button"> Show the Dialog</button>
+    <output></output>
 </body>
 
 </html>
