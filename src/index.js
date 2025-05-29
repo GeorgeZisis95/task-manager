@@ -1,15 +1,10 @@
 import "./styles.css";
 
-const taskArray = []
-
 function Card(name, age, job) {
     this.name = name
     this.age = age
     this.job = job
 }
-
-const task = new Card("Nicolas", 12, "Engineer")
-taskArray.push(task)
 
 const theInputs = Array.from(document.querySelectorAll("input"))
 const theDialog = document.querySelector("dialog")
@@ -39,5 +34,27 @@ cancelButton.addEventListener("click", () => {
 
 theDialog.addEventListener("close", () => {
     const [name, age, job] = JSON.parse(theDialog.returnValue)
-    taskArray.push(new Card(name, age, job))
+    refreshStorage(new Card(name, age, job))
 })
+
+if (localStorage.length === 0) {
+    populateStorage()
+    console.log("It is 0")
+} else {
+    createCards()
+}
+
+function populateStorage() {
+    localStorage.setItem("defaultTasks", JSON.stringify([]))
+    createCards()
+}
+
+function refreshStorage(card) {
+    const oldArray = JSON.parse(localStorage.getItem("defaultTasks"))
+    const newArray = [...oldArray, card]
+    localStorage.setItem("defaultTasks", JSON.stringify(newArray))
+}
+
+function createCards() {
+    const defaultCards = JSON.parse(localStorage.getItem("defaultTasks"))
+}
