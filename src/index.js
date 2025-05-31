@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import "./styles.css";
 import { theDialog } from "./dialog";
 
@@ -5,6 +6,7 @@ function Card(name, age, job) {
     this.name = name
     this.age = age
     this.job = job
+    this.id = uuidv4()
 }
 
 theDialog.addEventListener("close", () => {
@@ -49,9 +51,9 @@ function createCards() {
             className: "remove-button",
             textContent: "Remove Task"
         })
-        removeButton.dataset.id = card.name
+        removeButton.dataset.id = card.id
         removeButton.addEventListener("click", () => {
-            theArray = theArray.filter((item) => item.name !== removeButton.dataset.id)
+            theArray = theArray.filter((item) => item.id !== removeButton.dataset.id)
             localStorage.setItem("defaultTasks", JSON.stringify(theArray))
             cardDiv.remove()
         })
