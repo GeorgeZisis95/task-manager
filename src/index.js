@@ -1,4 +1,5 @@
 import "./styles.css";
+import { theDialog } from "./dialog";
 
 function Card(name, age, job) {
     this.name = name
@@ -6,35 +7,12 @@ function Card(name, age, job) {
     this.job = job
 }
 
-const theInputs = Array.from(document.querySelectorAll("input"))
-const theDialog = document.querySelector("dialog")
-const showButton = document.querySelector(".show-button")
-const cancelButton = document.querySelector(".cancel-button")
-const confirmButton = document.querySelector(".confirm-button")
-
-showButton.addEventListener("click", () => {
-    theDialog.showModal()
-})
-
-theDialog.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        event.preventDefault()
-        theDialog.close(JSON.stringify(theInputs.map((e) => e.value)))
-    }
-})
-
-confirmButton.addEventListener("click", (event) => {
-    event.preventDefault()
-    theDialog.close(JSON.stringify(theInputs.map((e) => e.value)))
-})
-
-cancelButton.addEventListener("click", () => {
-    theDialog.close()
-})
-
 theDialog.addEventListener("close", () => {
-    const [name, age, job] = JSON.parse(theDialog.returnValue)
-    refreshStorage(new Card(name, age, job))
+    if (theDialog.returnValue !== "cancel") {
+        const [name, age, job] = JSON.parse(theDialog.returnValue)
+        refreshStorage(new Card(name, age, job))
+        createCards()
+    }
 })
 
 if (localStorage.length === 0) {
@@ -56,5 +34,28 @@ function refreshStorage(card) {
 }
 
 function createCards() {
-    const defaultCards = JSON.parse(localStorage.getItem("defaultTasks"))
+    const cardContainer = document.querySelector(".card-container")
+    cardContainer.replaceChildren()
+    let theArray = JSON.parse(localStorage.getItem("defaultTasks"))
+    if (theArray.length === 0) {
+        return
+    }
+    theArray.map((card) => {
+        const cardDiv = Object.assign(document.createElement("div"), {
+            className: "card",
+            textContent: card.name
+        })
+        const removeButton = Object.assign(document.createElement("button"), {
+            className: "remove-button",
+            textContent: "Remove Task"
+        })
+        removeButton.dataset.id = card.name
+        removeButton.addEventListener("click", () => {
+            theArray = theArray.filter((item) => item.name !== removeButton.dataset.id)
+            localStorage.setItem("defaultTasks", JSON.stringify(theArray))
+            cardDiv.remove()
+        })
+        cardDiv.appendChild(removeButton)
+        cardContainer.appendChild(cardDiv)
+    })
 }
