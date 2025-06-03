@@ -10,9 +10,18 @@
 <body>
     <dialog closedby="any">
         <form>
-            <p><label>Name: <input class="base-input" type="text" required></label></p>
-            <p><label>Age: <input class="base-input" type="text" required></label></p>
-            <p><label>Job: <input class="base-input" type="text" required></label></p>
+            <p><label>Name: <input type="text" required></label></p>
+            <p><label>Age: <input type="text" required></label></p>
+            <p><label>Job: <input type="text" required></label></p>
+        </form>
+        <div>
+            <button class="cancel-button" value="cancel" formmethod="dialog">Cancel</button>
+            <button class="confirm-button" value="default">Confirm</button>
+        </div>
+    </dialog>
+    <dialog class="new-project" closedby="any">
+        <form>
+            <p><label>Project Name: <input type="text"></label></p>
         </form>
         <div>
             <button class="cancel-button" value="cancel" formmethod="dialog">Cancel</button>
@@ -20,6 +29,7 @@
         </div>
     </dialog>
     <button class="show-button"> Show the Dialog</button>
+    <button class="project-button"> Add Project </button>
     <div class="card-container"></div>
 </body>
 

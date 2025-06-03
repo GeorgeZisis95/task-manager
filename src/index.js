@@ -5,12 +5,15 @@ import { populateStorage, refreshStorage, createCards } from "./card_create"
 
 if (localStorage.length === 0) {
     populateStorage()
-    console.log("It is 0")
 } else {
     createCards()
 }
 
-createModal(document.body, document.querySelector(".show-button"), (name, age, job) => {
-    refreshStorage(new Card(name, age, job))
+createModal(document.body, document.querySelector(".show-button"), (array) => {
+    refreshStorage(new Card(array[0], array[1], array[2]))
     createCards()
-})
+}, false)
+
+createModal(document.body, document.querySelector(".project-button"), (array) => {
+    console.log(array)
+}, true)

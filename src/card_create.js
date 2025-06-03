@@ -28,12 +28,12 @@ function createCards() {
             textContent: "Edit Task"
         })
         cardDiv.appendChild(editButton)
-        createModal(cardDiv, editButton, (name, age, job) => {
-            [card.name, card.age, card.job] = [name, age, job]
+        createModal(cardDiv, editButton, (array) => {
+            [card.name, card.age, card.job] = array
             localStorage.setItem("defaultTasks", JSON.stringify(theArray))
             cardDiv.textContent = [card.name, card.age, card.job]
             createCards()
-        })
+        }, false)
         const removeButton = Object.assign(document.createElement("button"), {
             className: "remove-button",
             textContent: "Remove Task"

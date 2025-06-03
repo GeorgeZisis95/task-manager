@@ -1,13 +1,16 @@
-function createModal(container, showButton, submitLogic) {
+function createModal(container, showButton, submitLogic, project) {
     let dialogBox = document.body.querySelector("dialog")
-    if (container !== document.body) {
+    if (container !== document.body && !project) {
         dialogBox = document.body.querySelector("dialog").cloneNode(true)
         container.appendChild(dialogBox)
     }
+    if (project) {
+        dialogBox = document.body.querySelector(".new-project")
+    }
 
-    const theInputs = Array.from(container.querySelectorAll(".base-input"))
-    const cancelButton = container.querySelector(".cancel-button")
-    const confirmButton = container.querySelector(".confirm-button")
+    const theInputs = Array.from(dialogBox.querySelectorAll("input"))
+    const cancelButton = dialogBox.querySelector(".cancel-button")
+    const confirmButton = dialogBox.querySelector(".confirm-button")
 
     showButton.addEventListener("click", () => {
         dialogBox.showModal()
@@ -17,6 +20,10 @@ function createModal(container, showButton, submitLogic) {
         if (event.key === "Enter") {
             event.preventDefault()
             dialogBox.close(JSON.stringify(theInputs.map((e) => e.value)))
+        }
+
+        if (event.key === "Escape") {
+            dialogBox.close("cancel")
         }
     })
 
@@ -31,9 +38,10 @@ function createModal(container, showButton, submitLogic) {
 
     dialogBox.addEventListener("close", () => {
         if (dialogBox.returnValue !== "cancel") {
-            const [name, age, job] = JSON.parse(dialogBox.returnValue)
-            submitLogic(name, age, job)
+            const array = JSON.parse(dialogBox.returnValue)
+            submitLogic(array)
         }
     })
 }
+
 export { createModal }
