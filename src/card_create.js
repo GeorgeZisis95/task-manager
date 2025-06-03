@@ -6,6 +6,10 @@ function populateStorage() {
 }
 
 function refreshStorage(card) {
+    // I populate here as well, because if I clear LocalStorage and don't refresh the page it throws an error
+    if (localStorage.length === 0) {
+        populateStorage()
+    }
     const oldArray = JSON.parse(localStorage.getItem("defaultTasks"))
     const newArray = [...oldArray, card]
     localStorage.setItem("defaultTasks", JSON.stringify(newArray))

@@ -15,5 +15,10 @@ createModal(document.body, document.querySelector(".show-button"), (array) => {
 }, false)
 
 createModal(document.body, document.querySelector(".project-button"), (array) => {
-    console.log(array)
+    localStorage.setItem(array[0], JSON.stringify([]))
+    const newDiv = Object.assign(document.createElement("div"), {
+        className: `${array[0]}-container`,
+        textContent: `${array[0]}`
+    })
+    document.body.appendChild(newDiv)
 }, true)
