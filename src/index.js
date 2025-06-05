@@ -14,8 +14,21 @@ createModal(document.body, document.querySelector(".show-button"), (array) => {
     createCards()
 }, false)
 
+for (const key of Object.keys(localStorage)) {
+    if (key === "DefaultTasks") {
+        continue
+    }
+    const newDiv = Object.assign(document.createElement("div"), {
+        className: `${key}-container`,
+        textContent: `${key}`
+    })
+    document.body.appendChild(newDiv)
+}
+
 createModal(document.body, document.querySelector(".project-button"), (array) => {
+    // Might make this into separate function
     localStorage.setItem(array[0], JSON.stringify([]))
+
     const newDiv = Object.assign(document.createElement("div"), {
         className: `${array[0]}-container`,
         textContent: `${array[0]}`
