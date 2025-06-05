@@ -1,7 +1,7 @@
 import "./styles.css"
 import { createModal } from "./dialog"
 import { Card } from "./card_constr"
-import { populateStorage, refreshStorage, createCards } from "./card_create"
+import { populateStorage, refreshStorage, createCards, getCard } from "./card_create"
 
 if (localStorage.length === 0) {
     populateStorage()
@@ -22,6 +22,13 @@ for (const key of Object.keys(localStorage)) {
         className: `${key}-container`,
         textContent: `${key}`
     })
+    let newArray = JSON.parse(localStorage.getItem(`${key}`))
+    if (newArray.length !== 0) {
+        newArray.map((card) => {
+            const cardDiv = getCard(newArray, card)
+            newDiv.appendChild(cardDiv)
+        })
+    }
     document.body.appendChild(newDiv)
 }
 

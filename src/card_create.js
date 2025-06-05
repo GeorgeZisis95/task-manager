@@ -24,56 +24,60 @@ function createCards() {
         return
     }
     theArray.map((card) => {
-        const cardDiv = Object.assign(document.createElement("div"), {
-            className: "card",
-            textContent: [card.name, card.age, card.project]
-        })
-        const editButton = Object.assign(document.createElement("button"), {
-            className: "edit-button",
-            textContent: "Edit Task"
-        })
-        cardDiv.appendChild(editButton)
-        createModal(cardDiv, editButton, (array) => {
-            [card.name, card.age, card.project] = array
-            localStorage.setItem("DefaultTasks", JSON.stringify(theArray))
-            cardDiv.textContent = [card.name, card.age, card.project]
-            createCards()
-        }, false)
-        const moveButton = Object.assign(document.createElement("button"), {
-            className: "move-button",
-            textContent: "Move to Project"
-        })
-        moveButton.addEventListener("click", () => {
-            const projectName = prompt("Move to which project?")
-            const existingProjects = Object.keys(localStorage)
-            if (existingProjects.includes(projectName)) {
-                document.querySelector(`.${projectName}-container`).appendChild(cardDiv)
-            } else {
-                localStorage.setItem(projectName, JSON.stringify([]))
-                const newDiv = Object.assign(document.createElement("div"), {
-                    className: `${projectName}-container`,
-                    textContent: `${projectName}`
-                })
-                document.body.appendChild(newDiv)
-                newDiv.appendChild(cardDiv)
-            }
-            moveBetweenProjects(card.project, projectName, card.id)
-            card.project = projectName
-        })
-        cardDiv.appendChild(moveButton)
-        const removeButton = Object.assign(document.createElement("button"), {
-            className: "remove-button",
-            textContent: "Remove Task"
-        })
-        removeButton.dataset.id = card.id
-        removeButton.addEventListener("click", () => {
-            theArray = theArray.filter((item) => item.id !== removeButton.dataset.id)
-            localStorage.setItem("DefaultTasks", JSON.stringify(theArray))
-            cardDiv.remove()
-        })
-        cardDiv.appendChild(removeButton)
+        const cardDiv = getCard(theArray, card)
         cardContainer.appendChild(cardDiv)
     })
+}
+
+function getCard(theArray, card) {
+    const cardDiv = Object.assign(document.createElement("div"), {
+        className: "card",
+        textContent: [card.name, card.age, card.job]
+    })
+    const editButton = Object.assign(document.createElement("button"), {
+        className: "edit-button",
+        textContent: "Edit Task"
+    })
+    cardDiv.appendChild(editButton)
+    createModal(cardDiv, editButton, (array) => {
+        [card.name, card.age, card.project] = array
+        localStorage.setItem("DefaultTasks", JSON.stringify(theArray))
+        cardDiv.textContent = [card.name, card.age, card.project]
+        createCards()
+    }, false)
+    const moveButton = Object.assign(document.createElement("button"), {
+        className: "move-button",
+        textContent: "Move to Project"
+    })
+    moveButton.addEventListener("click", () => {
+        const projectName = prompt("Move to which project?")
+        const existingProjects = Object.keys(localStorage)
+        if (existingProjects.includes(projectName)) {
+            document.querySelector(`.${projectName}-container`).appendChild(cardDiv)
+        } else {
+            localStorage.setItem(projectName, JSON.stringify([]))
+            const newDiv = Object.assign(document.createElement("div"), {
+                className: `${projectName}-container`,
+                textContent: `${projectName}`
+            })
+            newDiv.appendChild(cardDiv)
+            document.body.appendChild(newDiv)
+        }
+        card = moveBetweenProjects(card.project, projectName, card.id)
+    })
+    cardDiv.appendChild(moveButton)
+    const removeButton = Object.assign(document.createElement("button"), {
+        className: "remove-button",
+        textContent: "Remove Task"
+    })
+    removeButton.dataset.id = card.id
+    removeButton.addEventListener("click", () => {
+        theArray = theArray.filter((item) => item.id !== removeButton.dataset.id)
+        localStorage.setItem("DefaultTasks", JSON.stringify(theArray))
+        cardDiv.remove()
+    })
+    cardDiv.appendChild(removeButton)
+    return cardDiv
 }
 
 function moveBetweenProjects(oldProjectName, newProjectName, id) {
@@ -83,9 +87,11 @@ function moveBetweenProjects(oldProjectName, newProjectName, id) {
     console.log(theItem)
     oldProjectArray.splice(index, 1)
     const newProjectArray = JSON.parse(localStorage.getItem(newProjectName))
+    theItem.project = newProjectName
     newProjectArray.push(theItem)
     localStorage.setItem(oldProjectName, JSON.stringify(oldProjectArray))
     localStorage.setItem(newProjectName, JSON.stringify(newProjectArray))
+    return theItem
 }
 
-export { populateStorage, refreshStorage, createCards }
+export { populateStorage, refreshStorage, createCards, getCard }
