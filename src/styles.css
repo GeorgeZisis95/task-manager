@@ -7,3 +7,74 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
+
+:root {
+    --sidebar-color: #fcfaf8;
+    --light-text-color: #666666;
+    --normal-text-color: #333333;
+    --hover-background-color: #e8e8e8;
+    --red-color: #e44332;
+}
+
+aside {
+    background-color: var(--sidebar-color);
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.user-logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.user-logo:hover {
+    background-color: var(--hover-background-color);
+    color: var(--normal-text-color);
+}
+
+.header-icons {
+    display: flex;
+}
+
+.icon {
+    color: var(--light-text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.icon-container {
+    width: 32px;
+    height: 32px;
+}
+
+.icon-container:hover {
+    background-color: var(--hover-background-color);
+    color: var(--normal-text-color);
+}
+
+.arrow-icon {
+    width: 32px;
+    color: inherit;
+}
+
+.profile-icon {
+    width: 32px;
+    border-radius: 100%;
+    border: 2px solid var(--red-color);
+    padding: 0;
+}
