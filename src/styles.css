@@ -78,3 +78,7 @@ aside {
     border: 2px solid var(--red-color);
     padding: 0;
 }
+
+.hide {
+    display: none;
+}
