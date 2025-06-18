@@ -19,8 +19,15 @@
 aside {
     background-color: var(--sidebar-color);
     width: 20%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+}
+
+.sidebar-full {
+    grid-area: 1 / 1 / 3 / 2;
+}
+
+.sidebar-small {
+    grid-area: 1 / 1 / 3 / 2;
 }
 
 .sidebar-header {
@@ -79,6 +86,22 @@ aside {
     padding: 0;
 }
 
+.move-left {
+    transform: translate(-200px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
 .hide {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.move-right {
+    transform: translate(200px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
 }
