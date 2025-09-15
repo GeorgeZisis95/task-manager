@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     font: inherit;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 :root {
     --sidebar-color: #fcfaf8;
     --light-text-color: #666666;
     --normal-text-color: #333333;
-    --hover-background-color: #e8e8e8;
-    --red-color: #e44332;
+    --hover-background-color: #efeeeb;
+    --red-color: #bb392b;
 }
 
 aside {
@@ -110,10 +110,22 @@ aside {
 .sidebar-task {
     display: flex;
     align-items: center;
-    padding: 5px;
+    margin: 10px;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
 }
 
 .add-task-icon {
     width: 2.5rem;
     /* To change color use svg fill property */
+}
+
+.sidebar-task:hover {
+    background-color: var(--hover-background-color);
+    color: var(--normal-text-color);
+}
+
+.sidebar-task p {
+    color: var(--red-color);
+    font-weight: 600;
 }
