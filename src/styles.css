@@ -17,12 +17,13 @@
 }
 
 aside {
-    background-color: var(--sidebar-color);
     width: 20%;
     display: grid;
+    height: 100vh;
 }
 
 .sidebar-full {
+    background-color: var(--sidebar-color);
     grid-area: 1 / 1 / 3 / 2;
 }
 
