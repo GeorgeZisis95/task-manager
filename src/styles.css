@@ -106,3 +106,14 @@ aside {
     visibility: hidden;
     transition: all 0.4s ease;
 }
+
+.sidebar-task {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.add-task-icon {
+    width: 2.5rem;
+    /* To change color use svg fill property */
+}
