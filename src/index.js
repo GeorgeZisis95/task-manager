@@ -38,3 +38,16 @@ function toSidebarFull() {
     sidebarFull.classList.remove("hide")
     sidebarSmall.classList.add("move-right")
 }
+
+const toggleSwitch = document.querySelector(".toggle-switch")
+toggleSwitch.addEventListener("click", () => {
+    const projectList = document.querySelector(".project-list")
+    if (projectList.style.visibility === "hidden") {
+        projectList.style.visibility = "visible"
+        projectList.style.opacity = "1"
+    } else {
+        projectList.style.visibility = "hidden"
+        projectList.style.opacity = "0"
+    }
+    console.log("Hello")
+})
